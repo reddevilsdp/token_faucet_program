@@ -1,57 +1,52 @@
-<!-- # 🏛️ Blind Auction -->
+# 🏛️ Blind Auction
 
-[//]: # (<img alt="workshop/auction" width="1412" src="../.resources/auction.png">)
+A **first-price sealed-bid auction** (or **blind auction**) implemented in **Leo**.
 
-A first-price sealed-bid auction in Leo.
+## 📌 Summary
 
-## Summary
+A **blind auction** is a type of auction where participants submit bids without knowing the bids of others. The highest bid wins the auction.
 
-A first-price sealed-bid auction (or blind auction) is a type of auction in which each participant submits a bid without knowing the bids of the other participants. 
-The bidder with the highest bid wins the auction.
+### **Roles in the Auction**
+- **Bidder**: A participant placing a bid.
+- **Auctioneer**: The entity managing the auction process.
 
-In this model, there are two parties: the auctioneer and the bidders.
-- **Bidder**: A participant in the auction.
-- **Auctioneer**: The party responsible for conducting the auction.
+### **Auction Assumptions**
+- The **auctioneer is honest** and resolves all bids in the order received, without tampering.
+- There is **no limit** on the number of bids.
+- The auctioneer knows all bidders, but bidders do **not** necessarily know each other.
+- Bidders cannot learn the value of other bids.
 
-We make the following assumptions about the auction:
-- The auctioneer is honest. That is, the auctioneer will resolve **all** bids in the order they are received. The auctioneer will not tamper with the bids.
-- There is no limit to the number of bids.
-- The auctioneer knows the identity of all bidders, but bidders do not necessarily know the identity of other bidders.
+## 📜 Auction Flow
 
-Under this model, we require that:
-- Bidders do not learn any information about the value of other bids.
+1️⃣ **Bidding Stage**: Bidders submit their bids by invoking the `place_bid` function.
+2️⃣ **Resolution Stage**: The auctioneer resolves bids in order using the `resolve` function. The highest bid wins.
+3️⃣ **Finishing Stage**: The auctioneer finalizes the auction with the `finish` function, allowing the winner to claim the item.
 
-### Auction Flow
-The auction is conducted in a series of stages.
-- **Bidding**: In the bidding stage, bidders submit bids to the auctioneer. They do so by invoking the `place_bid` function.
-- **Resolution**:  In the resolution stage, the auctioneer resolves the bids in the order they were received. The auctioneer does so by invoking the `resolve` function. The resolution process produces a single winning bid.
-- **Finishing**: In this stage, the auctioneer finishes the auction by invoking the `finish` function. This function returns the winning bid to the bidder, which the bidder can then use to claim the item.
+## 🔍 Key Language Features
+- **`record` declarations**
+- **`assert_eq` for validation**
+- **Record ownership enforcement**
 
+## 🚀 Running the Program
 
-## Language Features and Concepts
-- `record` declarations
-- `assert_eq`
-- record ownership
+Leo provides a **command-line interface** for compiling and running programs.
 
-## Running the Program
+### **🔧 Configuring Accounts**
+The `.env` file contains a **private key**, used to sign transactions and verify ownership of records.
+- When running the program as different participants, update the `PRIVATE_KEY` in `.env` accordingly.
+- See `./run.sh` for an example of running the program as different roles.
 
-Leo provides users with a command line interface for compiling and running Leo programs.
+### **🛠️ Generating Accounts**
+You can generate a new account using the [Aleo SDK](https://github.com/ProvableHQ/leo/tree/mainnet) or via [provable.tools](https://provable.tools).
 
-### Configuring Accounts
-The `.env` file contains a private key. 
-This is the account that will be used to sign transactions and is checked for record ownership.
-When executing programs as different parties, be sure to set the `PRIVATE_KEY` field in `.env` to the appropriate values.
-See `./run.sh` for an example of how to run the program as different parties.
-
-
-The [Aleo SDK](https://github.com/ProvableHQ/leo/tree/mainnet) provides an interface for generating new accounts.
-To generate a new account, navigate to [provable.tools](https://provable.tools).
-
-
-### Providing inputs via the command line.
+### **📝 Running the Auction via CLI**
 ```bash
 leo run <function_name> <input_1> <input_2> ...
 ```
-See `./run.sh` for an example.
+See `./run.sh` for an example of running the program.
 
+---
+
+### 📢 Need Help?
+Check out the official **Leo documentation** or reach out to the community for support!
 
